@@ -1,32 +1,27 @@
-# Adding route parameters
+# Re-using custom hooks to retrieve data
 
-1) We can add route parameters in `App.js`, in links using this:
+In `BlogDetails.js` we import our custom hook `useFetch()`.
 
-`<Route exact path="/blogs/:id">`
+Then we pass the Rest API link inside the `useFetch()` + `id` to be fetched.
 
-2) Then, from `BlogsDetails.js` we can retrieve parameter value using import `useParams()`
+Then, we do the same conditional rendering below.
 
 ```bash
- const {id} = useParams()                   <== id can be retrieved using useParams() from Link
+ const { data: blog, isPending, error } = useFetch("http://localhost:8000/blogs/" + id);
 
-    return ( 
+    return (
         <div className="blog-details">
-            <h2>Blog Details: {id}</h2>
+            {error && <div>{error}</div>}
+            {isPending && <div>Loading...</div>}
+            {blog && (
+                <article>
+                    <h2>{blog.title}</h2>
+                    <p>Written by: {blog.author}</p>
+                    <div>{blog.body}</div>
+                </article>
+            )}
         </div>
-     );
-```
-
-3) We can display dynamic route that will accept parameters from `BlogList.js`
-
-Take note that we are using tilde `\`\``
-
-```bash
-<div className="blog-preview" key={blog.id}>
-    <Link to={`/blogs/${blog.id}`}>                      <<== we are using tilde then ${}
-        <h2>{blog.title}</h2>
-        <p>Written by: {blog.author}</p>
-    </Link>
-</div>
+    );
 ```
 
 
