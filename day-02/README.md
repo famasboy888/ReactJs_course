@@ -1,16 +1,36 @@
-# Using Link instead of href
+# Using Clean up hooks to avoid errors of immediate route switching
 
-We use `<Link>` to enable reactive loading of route pages
-
-`import { Link } from "react-router-dom";`
-
-Wrap the whole App component with the `<Router>`.
+I dont really get this part but this is how it is implemented in `useFetch.js`:
 
 ```bash
-<div className="links">
-    <Link to="/">Home</Link>
-    <Link to="/create">New Blog</Link>
-</div>
+useEffect(() => {
+        const abortController = new AbortController();        <== You create an instance object of AbortController
+
+        setTimeout(() => {
+            fetch(url, { signal: abortController.signal })      <== You assign it as a signal
+                .then((res) => {
+                    if (!res.ok) {
+                        throw Error('Could not fetch data');
+                    }
+                    return res.json();
+                })
+                .then((rec) => {
+                    setData(rec);
+                    setIsPending(false);
+                    setError(null);
+                })
+                .catch((err) => {
+                    if( err.name === "AbortError"){
+                        console.log("fetch aborted");
+                    }else{
+                        setError(err.message);
+                        setIsPending(false);
+                    }
+                });
+        }, 1000)
+
+        return () => { abortController.abort() }    <== You return an anonymous function call. Inside, you will call the abort().
+    }, [url]);
 ```
 
 
