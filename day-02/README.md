@@ -1,31 +1,8 @@
 # Using of Props
 
-You can pass functions to another component by adding attributes:
+Using `useEffect()`.
 
-`<BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />`
-
-It can be called this way:
-
-```bash
-const BlogList = (props) => {
-    const { blogs } = props;
-    const { title } = props;
-    const { handleDelete } = props;
-
-    return (
-        <div className="blog-list">
-            <h2>{title}</h2>
-            {blogs.map((blog) => (
-                <div className="blog-preview" key={blog.id}>
-                    <h2>{blog.title}</h2>
-                    <p>Written by: {blog.author}</p>
-                    <button onClick={()=>( handleDelete(blog.id))}>Delete Blog</button>
-                </div>
-            ))}
-        </div>
-    );
-}
-```
+It allows you to run a function for every component changes.
 
 
 
