@@ -1,36 +1,32 @@
-# Using Clean up hooks to avoid errors of immediate route switching
+# Adding route parameters
 
-I dont really get this part but this is how it is implemented in `useFetch.js`:
+1) We can add route parameters in `App.js`, in links using this:
+
+`<Route exact path="/blogs/:id">`
+
+2) Then, from `BlogsDetails.js` we can retrieve parameter value using import `useParams()`
 
 ```bash
-useEffect(() => {
-        const abortController = new AbortController();        <== You create an instance object of AbortController
+ const {id} = useParams()                   <== id can be retrieved using useParams() from Link
 
-        setTimeout(() => {
-            fetch(url, { signal: abortController.signal })      <== You assign it as a signal
-                .then((res) => {
-                    if (!res.ok) {
-                        throw Error('Could not fetch data');
-                    }
-                    return res.json();
-                })
-                .then((rec) => {
-                    setData(rec);
-                    setIsPending(false);
-                    setError(null);
-                })
-                .catch((err) => {
-                    if( err.name === "AbortError"){
-                        console.log("fetch aborted");
-                    }else{
-                        setError(err.message);
-                        setIsPending(false);
-                    }
-                });
-        }, 1000)
+    return ( 
+        <div className="blog-details">
+            <h2>Blog Details: {id}</h2>
+        </div>
+     );
+```
 
-        return () => { abortController.abort() }    <== You return an anonymous function call. Inside, you will call the abort().
-    }, [url]);
+3) We can display dynamic route that will accept parameters from `BlogList.js`
+
+Take note that we are using tilde `\`\``
+
+```bash
+<div className="blog-preview" key={blog.id}>
+    <Link to={`/blogs/${blog.id}`}>                      <<== we are using tilde then ${}
+        <h2>{blog.title}</h2>
+        <p>Written by: {blog.author}</p>
+    </Link>
+</div>
 ```
 
 
