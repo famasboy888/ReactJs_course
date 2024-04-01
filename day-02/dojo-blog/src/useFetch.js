@@ -1,12 +1,3 @@
-# Using Custom Hooks
-
-Using custom hooks allows us to make function reusable across modules.
-
-Naming convention for custom hooks files need to start with `use`.
-
-Example: `useFetch.js`
-
-```bash
 import { useState, useEffect } from "react";
 
 const useFetch = (url) => {
@@ -39,7 +30,3 @@ const useFetch = (url) => {
 }
 
 export default useFetch;
-```
-
-Basically, we just transferred them to be more reusable.
-
