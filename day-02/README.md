@@ -1,13 +1,16 @@
 # Using of Props
 
-You can pass parameters to another component by adding attributes:
-`<BlogList blogs={blogs} title="All Blogs!"/>`
+You can pass functions to another component by adding attributes:
 
-Your components recieve `props` then you can destructure them:
+`<BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />`
+
+It can be called this way:
+
 ```bash
 const BlogList = (props) => {
     const { blogs } = props;
     const { title } = props;
+    const { handleDelete } = props;
 
     return (
         <div className="blog-list">
@@ -16,6 +19,7 @@ const BlogList = (props) => {
                 <div className="blog-preview" key={blog.id}>
                     <h2>{blog.title}</h2>
                     <p>Written by: {blog.author}</p>
+                    <button onClick={()=>( handleDelete(blog.id))}>Delete Blog</button>
                 </div>
             ))}
         </div>
@@ -23,13 +27,5 @@ const BlogList = (props) => {
 }
 ```
 
-<hr>
 
-You can use `filter()` to filter items from objects you want to retrieve.
-
-It only returns the items that meets a true condition.
-
-`<BlogList blogs={blogs.filter((blog) => (blog.author === "mario"))} title="Yoshi's Blogs!" />`
-
-We see the condition `blog.author === "mario"`. So, it will only return data that has an author of `mario`.
 
