@@ -1,27 +1,45 @@
-# Re-using custom hooks to retrieve data
+# Adding Input forms
 
-In `BlogDetails.js` we import our custom hook `useFetch()`.
-
-Then we pass the Rest API link inside the `useFetch()` + `id` to be fetched.
-
-Then, we do the same conditional rendering below.
+Input forms are stored in a state
 
 ```bash
- const { data: blog, isPending, error } = useFetch("http://localhost:8000/blogs/" + id);
+const Create = () => {
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useState("");
+    const [author, setAuthor] = useState("mario");
 
     return (
-        <div className="blog-details">
-            {error && <div>{error}</div>}
-            {isPending && <div>Loading...</div>}
-            {blog && (
-                <article>
-                    <h2>{blog.title}</h2>
-                    <p>Written by: {blog.author}</p>
-                    <div>{blog.body}</div>
-                </article>
-            )}
+        <div className="create">
+            <h2>Add a new Blog</h2>
+            <form>
+                <label>Blog Title:</label>
+                <input
+                    type="text"
+                    required
+                    value={title}
+                    onChange={(e)=>(setTitle(e.target.value))} />
+                <label>Blog Body:</label>
+                <textarea
+                    required
+                    value={body}
+                    onChange={(e)=>(setBody(e.target.value))}>
+                </textarea>
+                <label>Blog Author:</label>
+                <select
+                    value={author}
+                    onChange={(e)=>(setAuthor(e.target.value))}>
+                    <option value="mario">mario</option>
+                    <option value="yoshi">yoshi</option>
+                    <option value="wario">wario</option>
+                </select>
+                <button>Add blog</button>
+                <p>{title}</p>
+                <p>{body}</p>
+                <p>{author}</p>
+            </form>
         </div>
     );
+}
 ```
 
 
