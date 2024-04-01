@@ -17,5 +17,5 @@ Runs the app in the development mode.
 Type `sfc` Stateless function Component
 
 <p align="left">
-  <img width="80%" height="80%" src="https://github.com/famasboy888/ReactJs_course/assets/23441168/3152d021-2e74-4190-8f54-27d405b9f886">
+  <img width="50%" height="50%" src="https://github.com/famasboy888/ReactJs_course/assets/23441168/3152d021-2e74-4190-8f54-27d405b9f886">
 </p>
