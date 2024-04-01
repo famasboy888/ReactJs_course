@@ -23,3 +23,13 @@ const BlogList = (props) => {
 }
 ```
 
+<hr>
+
+You can use `filter()` to filter items from objects you want to retrieve.
+
+It only returns the items that meets a true condition.
+
+`<BlogList blogs={blogs.filter((blog) => (blog.author === "mario"))} title="Yoshi's Blogs!" />`
+
+We see the condition `blog.author === "mario"`. So, it will only return data that has an author of `mario`.
+
