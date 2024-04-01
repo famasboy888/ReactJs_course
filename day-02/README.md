@@ -1,20 +1,15 @@
-# Add redirect route after submit
+# Delete Function
 
-Import `useHistory()` and store in variable:
-
-`const history = useHistory();`
-
-It can be called to `go()` 1 page before
-
-Or `push()` to force redirect to a route
+Delete function is just similar to post:
 
 ```bash
-.then(() => {
-    setIsPending(false);
-    console.log("New Blog added");
-    // history.go(-1);              <== goes back 1 page
-    history.push("/");              <== force redirect
-});
+const handleDelete = () =>{
+    fetch("http://localhost:8000/blogs/"+ blog.id, {
+        method: "DELETE",  
+    }).then(()=>{
+        history.push("/");
+    });
+}
 ```
 
 
