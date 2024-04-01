@@ -1,45 +1,40 @@
-# Using Custom Hooks
+# Using React Router
 
-Using custom hooks allows us to make function reusable across modules.
+Install react router `npm install react-router-dom@5`
 
-Naming convention for custom hooks files need to start with `use`.
+Import react router in main `App.js` file
 
-Example: `useFetch.js`
+`import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'`
+
+Wrap the whole App component with the `<Router>`.
 
 ```bash
-import { useState, useEffect } from "react";
-
-const useFetch = (url) => {
-    const [data, setData] = useState(null);
-    const [isPending, setIsPending] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        setTimeout(() => {
-            fetch(url)
-                .then((res) => {
-                    if (!res.ok) {
-                        throw Error('Could not fetch data');
-                    }
-                    return res.json();
-                })
-                .then((rec) => {
-                    setData(rec);
-                    setIsPending(false);
-                    setError(null);
-                })
-                .catch((err) => {
-                    setError(err.message);
-                    setIsPending(false);
-                });
-        }, 1000)
-    }, [url]);
-
-    return { data, isPending, error };
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar></Navbar>
+        <div className="content">
+          <Switch>
+            <Route exact path="/">
+              <Home></Home>
+            </Route>
+            <Route exact path="/create">
+              <Create></Create>
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
 }
-
-export default useFetch;
 ```
 
-Basically, we just transferred them to be more reusable.
+The `<Switch>` allows selection of `<Route>`. If it matches the route, then it will load the component below it. Just like a **switch case**.
+
+Then add `exact` attribute to match exact routing.
+
+`<Route exact path="/">`
+
+
 
